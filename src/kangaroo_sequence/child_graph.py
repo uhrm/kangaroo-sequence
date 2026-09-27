@@ -87,7 +87,7 @@ def main() -> None:
         else:
             print(
                 f"{root:>6} {tree.leaves:>7} {tree.branch_points:>9} {_magnitude(tree.height, 10):>12}"
-                f" {_magnitude(tree.largest_leaf, base):>14}"
+                f" {_below_power(tree.largest_leaf, base):>14}"
             )
 
 
@@ -96,6 +96,19 @@ def _magnitude(n: int, base: int) -> str:
     if n < base**6:
         return str(n)
     return f"{base}^{math.log(n, base):.2f}"
+
+
+def _below_power(n: int, base: int) -> str:
+    """Format ``n`` exactly if short, otherwise as ``base^m - r`` with ``base^m`` the next power above ``n``.
+
+    Leaves are landmines, which lie less than ``base**2`` below a power of ``base``.
+    """
+    if n < base**6:
+        return str(n)
+    m, power = 1, base
+    while power <= n:
+        m, power = m + 1, power * base
+    return f"{base}^{m} - {power - n}"
 
 
 if __name__ == "__main__":
