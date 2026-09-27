@@ -1,0 +1,26 @@
+Decade rows repeat with period P = 924 from decade K = 11 on.
+
+(m - j, r) depends only on c and j mod 924, for all j >= 5.
+  (cross-checked against direct computation for 40 starts)
+
+Sequences enter decade k >= 3 at 10^k + u for 46 offsets u:
+  (0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 46, 47, 48, 49, 50, 57, 58, 59, 60, 68, 69, 70, 79, 80, 90)
+In every decade the 46 entries and 8 starts map one-to-one onto the 46 exits and 8 landmines: True
+  so start -> end is a bijection between {c * 10^j} and the landmines.
+
+Mean lifetime m - j over one period: 27/4 = 1 + 46/8
+Longest lifetime: 45 decades (from a start), 44 decades (from a decade entry)
+Lifetime distribution: [(1, 813), (2, 915), (3, 896), (4, 784), (5, 644), (6, 518), (7, 431), (8, 365), (9, 345), (10, 242), (11, 198), (12, 192), (13, 152), (14, 132), (15, 140), (16, 100), (17, 81), (18, 88), (19, 54), (20, 54), (21, 34), (22, 23), (23, 38), (24, 28), (25, 16), (26, 11), (27, 17), (28, 14), (29, 14), (30, 10), (31, 5), (32, 5), (33, 4), (34, 4), (36, 6), (37, 5), (38, 2), (39, 2), (40, 3), (41, 1), (42, 2), (43, 3), (45, 1)] 
+
+Counts of (c, r) over one period of j:
+     r:   19   28   37   46   55   64   73   82
+  c = 2:  120  107  110  109  126  136  102  114
+  c = 3:  129   97  125  111  118  123  118  103
+  c = 4:  100  105  123  123  128  101  129  115
+  c = 5:  136   94  106  119  109  111  122  127
+  c = 6:  123   75  116  116  120  113  135  126
+  c = 7:   96  234  119  114   87   91   96   87
+  c = 8:  120   87  114  119  133  115  106  130
+  c = 9:  100  125  111  113  103  134  116  122
+
+7 * 10^j ends at 10^(j+1) - 28 for all j >= 5 with j = 5 (mod 6): True (SuccessorEnd(decades=1, landmine=28))
