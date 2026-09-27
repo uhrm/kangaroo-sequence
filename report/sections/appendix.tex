@@ -1,26 +1,45 @@
 \section{Software and reproducibility}
 \label{app:software}
 
-All computations use the Python package in this repository; see its \texttt{README.md}. The main
-modules are
+All computations use the Python package in the repository~\cite{repo}. The numbers and tables in
+this report were produced at commit {\footnotesize\href{https://github.com/uhrm/kangaroo-sequence/tree/284ee1f2bded59f31600f1f48c0dd66c0bd2ef33}{\texttt{284ee1f2bded59f31600f1f48c0dd66c0bd2ef33}}},
+where the outputs of all scripts are stored in \texttt{analysis/output/}. The main modules are
 \begin{itemize}
   \item \texttt{comma.py}: children, successors, and the block jumps of Section~\ref{sec:jumps};
   \item \texttt{child\_graph.py}: roots and complete exploration of child trees
         (Section~\ref{sec:trees});
-  \item \texttt{decades.py}: the decade transition table, the successor automaton, immortal entries
-        and the earliest infinite path (Sections~\ref{sec:table} and~\ref{sec:consequences}).
+  \item \texttt{decades.py}: the decade table, immortal entries and the earliest infinite path
+        (Sections~\ref{sec:table} and~\ref{sec:consequences}).
 \end{itemize}
-The scripts
-\begin{itemize}
-  \item \texttt{analysis/successor\_ends.py} (Section~\ref{sec:ends}),
-  \item \texttt{analysis/infinite\_path.py} (Section~\ref{sec:consequences}),
-  \item \texttt{analysis/export\_table.py} (the full table as CSV)
-\end{itemize}
-reproduce the results; their outputs are kept in \texttt{analysis/output/}. The test suite
-(\texttt{uv run pytest}) checks the results against~\cite{comma} and the table against direct
-computation, as described in the validation paragraphs above.
+Table~\ref{tab:reproduce} lists which script reproduces which result. Each script is run with
+\texttt{uv run python} followed by the command shown. The test suite (\texttt{uv run pytest})
+checks the results against~\cite{comma} and the decade table against direct computation, as
+described in the validation paragraphs above.
 
-\todo{Record the commit hash that the numbers in this report were produced with.}
+\begin{table}[ht]
+  \centering
+  \footnotesize
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Result & Command (output in \texttt{analysis/output/}) \\
+    \midrule
+    Section~\ref{sec:trees}, Appendix~\ref{app:trees}
+      & \texttt{-m kangaroo\_sequence.child\_graph} (\texttt{child\_trees.txt}) \\
+    Section~\ref{sec:jumps} ($D_f$), Section~\ref{sec:table} ($M$, period)
+      & \texttt{analysis/decade\_period.py} (\texttt{decade\_period.txt}) \\
+    Section~\ref{sec:ends}, Table~\ref{tab:cr}
+      & \texttt{analysis/successor\_ends.py} (\texttt{successor\_ends.txt}) \\
+    Mean lifetime for $3 \le b \le 10$
+      & \texttt{analysis/mean\_lifetime.py} (\texttt{mean\_lifetime.txt}) \\
+    Section~\ref{sec:consequences}, Appendix~\ref{app:choices}
+      & \texttt{analysis/infinite\_path.py 100} (\texttt{infinite\_path.txt}) \\
+    The decade table
+      & \texttt{analysis/export\_table.py} (\texttt{decade\_table\_base10.csv}) \\
+    \bottomrule
+  \end{tabular}
+  \caption{Scripts reproducing the results of this report.}
+  \label{tab:reproduce}
+\end{table}
 
 \section{The finite trees of the base-10 child graph}
 \label{app:trees}
