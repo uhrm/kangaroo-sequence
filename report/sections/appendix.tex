@@ -1,0 +1,79 @@
+\section{Software and reproducibility}
+\label{app:software}
+
+All computations use the Python package in this repository; see its \texttt{README.md}. The main
+modules are
+\begin{itemize}
+  \item \texttt{comma.py}: children, successors, and the block jumps of Section~\ref{sec:jumps};
+  \item \texttt{child\_graph.py}: roots and complete exploration of child trees
+        (Section~\ref{sec:trees});
+  \item \texttt{decades.py}: the decade transition table, the successor automaton, immortal entries
+        and the earliest infinite path (Sections~\ref{sec:table} and~\ref{sec:consequences}).
+\end{itemize}
+The scripts
+\begin{itemize}
+  \item \texttt{analysis/successor\_ends.py} (Section~\ref{sec:ends}),
+  \item \texttt{analysis/infinite\_path.py} (Section~\ref{sec:consequences}),
+  \item \texttt{analysis/export\_table.py} (the full table as CSV)
+\end{itemize}
+reproduce the results; their outputs are kept in \texttt{analysis/output/}. The test suite
+(\texttt{uv run pytest}) checks the results against~\cite{comma} and the table against direct
+computation, as described in the validation paragraphs above.
+
+\todo{Record the commit hash that the numbers in this report were produced with.}
+
+\section{The finite trees of the base-10 child graph}
+\label{app:trees}
+
+\begin{center}
+  \small
+  \begin{tabular}{@{}rrll@{\qquad}rrll@{}}
+    \toprule
+    root & leaves & height       & largest leaf & root & leaves & height        & largest leaf \\
+    \midrule
+       1 &      8 & $10^{23.29}$ & $10^{25}$    &   31 &      1 & $1$           & $45$         \\
+       2 &      3 & $10^{14.29}$ & $10^{16}$    &   32 &      1 & $10^{7.30}$   & $10^{9}$     \\
+       3 &      1 & $1$          & $36$         &   37 &      1 & $195$         & $9918$       \\
+       4 &      1 & $199899$     & $10^{7}$     &   38 &     10 & $10^{15.32}$  & $10^{17}$    \\
+       5 &      4 & $10^{14.32}$ & $10^{16}$    &   39 &      1 & $19$          & $918$        \\
+       6 &     32 & $10^{40.31}$ & $10^{42}$    &   40 &      4 & $10^{28.29}$  & $10^{30}$    \\
+       7 &      1 & $14$         & $936$        &   41 &      1 & $18$          & $954$        \\
+       8 &      3 & $10^{11.30}$ & $10^{13}$    &   42 &      1 & $1980$        & $99927$      \\
+       9 &      3 & $10^{22.33}$ & $10^{24}$    &   43 &      1 & $1$           & $81$         \\
+      10 &      2 & $10^{11.29}$ & $10^{13}$    &   49 &      1 & $192$         & $9945$       \\
+      13 &     66 & $10^{85.31}$ & $10^{87}$    &   50 &      3 & $10^{16.32}$  & $10^{18}$    \\
+      14 &      4 & $10^{9.30}$  & $10^{11}$    &   51 &      8 & $10^{16.32}$  & $10^{18}$    \\
+      15 &      1 & $1$          & $72$         &   52 &      9 & $10^{19.29}$  & $10^{21}$    \\
+      16 &      4 & $10^{12.33}$ & $10^{14}$    &   53 &      1 & $20$          & $972$        \\
+      17 &     31 & $10^{52.32}$ & $10^{54}$    &   54 &      1 & $0$           & $54$         \\
+      18 &      1 & $0$          & $18$         &   62 &      2 & 205967        & $10^{7}$     \\
+      19 &      1 & $21481$      & $999981$     &   63 &      1 & $0$           & $63$         \\
+      20 &      - & -            & -            &   64 &    285 & $10^{130.33}$ & $10^{132}$   \\
+      21 &      3 & $2073$       & $99981$      &   65 &      1 & $2099$        & $99963$      \\
+      25 &      1 & $192$        & $9963$       &   74 &      1 & $19$          & $945$        \\
+      26 &      2 & $199508$     & $10^{7}$     &   75 &      1 & $2135$        & $99954$      \\
+      27 &      1 & $0$          & $27$         &   76 &      9 & $10^{22.29}$  & $10^{24}$    \\
+      28 &      1 & $196$        & $9927$       &   86 &      1 & $1982$        & $99918$      \\
+      29 &      1 & $10^{6.31}$  & $10^{8}$     &   87 &      2 & $10^{10.29}$  & $10^{12}$    \\
+      30 &   1008 & $10^{363.30}$ & $10^{365}$  &   98 &      1 & $204$         & $9936$       \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+Heights count edges from the root to the deepest leaf. Entries $10^{x}$ are rounded to two decimals
+of the exponent; a largest leaf shown as $10^{m}$ is a landmine just below $10^m$.
+
+\section{Branch choices of A367620 over one period}
+\label{app:choices}
+
+The choices \oeis{A399179} at the $314$ branch points of \oeis{A367620} in decades $11, \dots, 934$
+($0$ = smaller child, $1$ = larger child); the pattern repeats every $924$ decades.
+\begin{center}
+  \small
+  \texttt{0111 0011 1011 0000 1100 1011 1111 0000 1100 1001 0000 1101}\\
+  \texttt{0100 0100 0011 1001 0110 0011 0011 1000 1111 1111 0010 1110}\\
+  \texttt{0111 1100 1011 1111 0000 0110 0000 0001 0111 1101 1111 0101}\\
+  \texttt{1101 1111 1101 1010 0110 0110 0010 1100 1001 1110 0011 1110}\\
+  \texttt{0011 0111 0110 0100 1000 1101 0110 1110 0100 1011 0001 1000}\\
+  \texttt{0111 1101 1100 0100 0101 1100 0011 1111 1010 1010 0001 1100}\\
+  \texttt{1000 1111 0101 0111 1101 0110 11\phantom{xx xxxx xxxx xxxx xxxx xxxx}}
+\end{center}

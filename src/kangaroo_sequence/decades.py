@@ -1,5 +1,9 @@
 """Decade transition tables for comma sequences.
 
+This is the finite graph G'_b of Dougherty-Bliss and Ter-Saakov, "The Comma
+Sequence is Finite in Other Bases", J. Integer Sequences 28 (2025), at the
+granularity of decades, extended by the branch points needed for the child graph.
+
 Decade ``k`` consists of the numbers with ``k + 1`` digits, ``[b^k, b^(k+1))``.
 For ``k >= 2`` a successor path can enter decade ``k`` in only two ways: at a
 term ``b^k + u`` with ``u < b^2`` (an *entry*), or by starting at ``c * b^k``

@@ -1,0 +1,46 @@
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+We follow the definitions and notation of~\cite{comma}. Fix a base $b \ge 3$ and write $\lead(n)$
+for the leading digit of $n$. A \emph{comma-child} of $k$ is a number $k'$ with
+$k' - k = (k \bmod b) \cdot b + \lead(k')$, and the \emph{comma-successor} of $k$ is its smallest
+child, if any. The \emph{successor graph} $G_s$ and the \emph{child graph} $G_c$ have an edge from
+$k$ to its successor and to each of its children, respectively. We use the following facts, all
+from~\cite{comma}.
+
+\begin{itemize}
+  \item Every number has at most one parent and at most two children~\cite[\S2, Lemma~5.3]{comma},
+        so $G_c$ is a forest; its roots are the $50$ numbers (4.6) of~\cite{comma} in base 10
+        (Theorem~5.5 there).
+  \item \emph{Landmines}, the numbers without children, are exactly $(b-1)\cdots(b-1)\,x\,y$ with
+        $1 \le x \le b-2$ and $x + y = b - 1$~\cite[Theorem~5.1]{comma}. In base 10 these are
+        $10^m - r$ with $r \in \{19, 28, 37, 46, 55, 64, 73, 82\}$.
+  \item \emph{Branch points} with three or more digits are $d\,(b-1)^i\,d\,(b-1-d)$,
+        $1 \le d \le b-2$; their children are $d\,(b-1)^{i+2}$ and
+        $(d+1) \cdot b^{i+2}$~\cite[Theorem~5.2]{comma}.
+  \item \emph{Starts}: the numbers $n \ge b^2 - 1$ that are not successors are exactly
+        $c \cdot b^j$ with $j \ge 2$ and $2 \le c \le b-1$~\cite[Theorem~5.4]{comma}.
+\end{itemize}
+
+\begin{definition}
+  For $k \ge 0$, \emph{decade} $k$ is the interval $[b^k, b^{k+1})$ of numbers with $k + 1$ digits.
+\end{definition}
+
+A successor path therefore enters decade $k \ge 2$ either by crossing $b^k$ from below or by starting
+at one of the $b - 2$ numbers $c \cdot b^k$, and the larger child of a branch point in decade $k$ is
+such a start. A tree of the child graph consists of successor paths glued together at branch
+points: the smaller child continues the current successor path and the larger one begins a new one.
+
+\paragraph{The finite graph of Dougherty-Bliss and Ter-Saakov.}
+In~\cite{dbts}, the point $(d, u, k)$ denotes the number $d\,b^k - u$ with $0 \le u < b^2$, the last
+term of a successor path in the danger interval $[d\,b^k - b^2, d\,b^k)$. The possible values of $u$
+form a set $U(b, d)$ that does not depend on $k$~\cite[Lemma~6]{dbts}; for $d = 1$,
+\[
+  |U(b, 1)| = \frac{(b-1)(b+2)}{2},
+\]
+which is $54$ in base 10. The map from $(d, u, k)$ to the next point depends on $k$ only modulo a
+period $L(b)$, for $k$ large enough~\cite[Proposition~8]{dbts}; in base 10, $L(10) = 924$. The
+resulting finite graph $G'_b$ on the points $(d, u, k \bmod L(b))$ has in- and out-degree at most
+one~\cite[Lemma~10]{dbts}, and all base-$b$ comma sequences are finite if and only if $G'_b$ has no
+cycle~\cite[Proposition~11]{dbts}. Every path of $G'_b$ begins at a start $(d, 0, \kappa)$, so there
+are $(b-2) L(b)$ paths.

@@ -1,0 +1,47 @@
+\section{Introduction}
+
+The comma sequence \oeis{A121805} starts at $1$, and each next term $k'$ of a term $k$ is the
+smallest number such that $k' - k$ equals the two-digit number formed by the last digit of $k$ and
+the first digit of $k'$. It famously dies after $2137453$ terms at $99999945$. Angelini et
+al.~\cite{comma} study this sequence, its variants with other starting values and bases, and the
+\emph{child graph}, in which a number may continue with any valid next term rather than the
+smallest. They conjecture that all comma sequences in bases $b \ge 3$ are finite and prove it for
+$b = 3$.
+
+Dougherty-Bliss and Ter-Saakov~\cite{dbts} proved this conjecture for all bases $3 \le b \le 633$.
+Their method reduces the behaviour of comma sequences between consecutive ``danger intervals''
+$[d\, b^k - b^2, d\, b^k)$ to a map that depends on $k$ only modulo a period $L(b)$, which yields a
+finite graph $G'_b$ that has a cycle if and only if some comma sequence is infinite; they check the
+absence of cycles by computer~\cite{dbtscode}. They also prove Conjecture~7.1 of~\cite{comma}.
+
+The child graph has at least one infinite path~\cite[Theorem~5.6]{comma}; the lexicographically
+earliest one in base 10 is \oeis{A367620}, starting at the root $20$. Angelini et al.\ determined
+its first $30$ branch choices, recorded as \oeis{A399179}, and could not decide which of several
+candidate continuations are infinite. The OEIS entry of \oeis{A399179} asks for more terms and
+suggests that the sequence might be described by a finite automaton.
+
+\paragraph{Contributions.}
+We re-implemented the algorithms of~\cite{comma}, and the decade-level version of the finite graph
+of~\cite{dbts}, extended to the child graph. Our main results concern the child graph in base 10.
+\begin{enumerate}[label=(\roman*)]
+  \item The child graph has exactly one infinite path starting at a root; it is \oeis{A367620}
+        (Theorem~\ref{thm:unique}).
+  \item The branch choices of this path, \oeis{A399179}, are periodic from decade $11$ on with
+        period $924$ decades, $314$ choices per period (Theorem~\ref{thm:periodic}). This gives all
+        terms of \oeis{A399179}; its first $30$ terms agree with the known ones.
+\end{enumerate}
+We also record some smaller observations:
+\begin{enumerate}[label=(\roman*),resume]
+  \item The skip-ahead formulas (6.3) and (6.4) of~\cite{comma} lack a factor $b$
+        (Section~\ref{sec:jumps}).
+  \item Where successor sequences starting at $c \cdot 10^j$ end: the dependence on $j \bmod 924$,
+        the joint distribution of start digit and end point, and the exact mean lifetime
+        $(b-1)(b+2) / (2(b-2))$ decades (Section~\ref{sec:ends}).
+\end{enumerate}
+We also reproduce, independently, the exploration of the 50 child trees in Section~11
+of~\cite{comma} (Section~\ref{sec:trees}), and the finiteness of all base-10 comma sequences
+from~\cite{dbts}.
+
+Our results rely on the periodicity statement of~\cite[Proposition~8]{dbts}, applied also to the
+positions of branch points and to step counts (Section~\ref{sec:table}). Apart from that, they are
+computational, and the code is described in Appendix~\ref{app:software}.

@@ -20,3 +20,11 @@ Run the tests with `uv run pytest`.
 - `uv run python analysis/export_table.py`: write the 924-periodic decade transition table to `analysis/output/`.
 
 The outputs of these scripts are kept in `analysis/output/`.
+
+## Report
+
+The draft report is in `report/`. Build it with [Tectonic](https://tectonic-typesetting.github.io):
+
+```sh
+cd report && mkdir -p build && tectonic -X compile main.tex --outdir build
+```

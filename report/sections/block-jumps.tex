@@ -1,0 +1,60 @@
+\section{Block jumps}
+\label{sec:jumps}
+
+Let $k = f\,s\,w\,x$ in base $b$, with leading digit $f$ and last digit $x$. As long as the leading
+digit stays $f$, the successor of $k$ is $k + x b + f$, and the last digit advances by $f$ modulo
+$b$. Writing $k(0) = k$ and $x_j = (x + j f) \bmod b$, we get
+\begin{equation}
+  \label{eq:63}
+  k(n) = k + b \sum_{j=0}^{n-1} x_j + n f .
+\end{equation}
+Since $x_j$ is periodic in $j$ with period dividing $b$, a block of $b$ steps adds
+\begin{equation}
+  \label{eq:D}
+  D_f(x) = b \Bigl( f + \sum_{j=0}^{b-1} \bigl( (x + j f) \bmod b \bigr) \Bigr),
+\end{equation}
+so that
+\begin{equation}
+  \label{eq:64}
+  k(m b) = k + m \, D_f(x) .
+\end{equation}
+
+\begin{remark}
+  Equations (6.3) and (6.4) of~\cite{comma} print the sum without the factor $b$, i.e.\
+  $k(mb) = k + m(bf + \sum_j x_j)$. The worked example in Section~6 of~\cite{comma} agrees with
+  \eqref{eq:64}: for $f = 1$ the comma-numbers $81, 91, 1, \dots, 71$ of a block sum to
+  $460 = 10\,(1 + 45) = D_1(8)$, whereas the printed formula gives $55$. The published
+  version~\cite{comma} has the same formulas. Since the lengths (1.2) reported in~\cite{comma} agree
+  with the corrected formula (see below), this appears to be a typographical error only.
+  \cite[Equation~(3)]{dbts} describes the same blocks by the list of comma-numbers of one cycle,
+  whose sum is $D_f(x)$.
+\end{remark}
+
+In base 10, $D_f(x)$ depends on $x$ only through $x \bmod \gcd(f, 10)$; its values are
+\begin{center}
+  \begin{tabular}{@{}cccccccccc@{}}
+    \toprule
+    $f$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+    \midrule
+    $D_f$ & 460 & 420, 520 & 480 & 440, 540 & 300, 400, \dots, 700 & 460, 560 & 520 & 480, 580 & 540 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\paragraph{How far one may jump.}
+Let $p = b^{d-1}$, where $d$ is the number of digits of $k$. The successor sequence is increasing,
+so all skipped terms keep leading digit $f$ provided $k(mb) < (f+1)\,p$; a child with a smaller
+leading digit is impossible, so $x b + f$ is the smallest comma-number at every skipped step. In the
+child graph a skipped term may not have a second child either. Such a child has leading digit
+$f + 1$ (or is in the next decade), hence is at least $(f+1)\,p$, and it is less than $b^2$ above
+its parent. So it suffices that
+\[
+  k(mb) \le (f+1)\,p - b^2 .
+\]
+This matches the margin in condition (6.1) of~\cite{comma}. \todo{(6.1) reads
+$k \le (f+1)(b^{i+2} - b^2)$; check whether $(f+1)\,b^{i+2} - b^2$ was intended.}
+
+\paragraph{Validation.}
+Alternating maximal jumps with single steps across leading-digit changes reproduces the lengths
+(1.2) and final terms (1.3) of~\cite{comma} for the starting values $1, \dots, 8$; the longest
+case, $2.1 \cdot 10^{17}$ terms from the start $6$, takes well under a second.

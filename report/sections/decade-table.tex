@@ -1,0 +1,47 @@
+\section{The decade table}
+\label{sec:table}
+
+Our computations use the finite graph of~\cite{dbts} at the granularity of decades rather than
+danger intervals, extended by the information needed for the child graph.
+
+\begin{definition}
+  Let $k \ge 2$. The \emph{inputs} of decade $k$ are the entries $b^k + u$ with $u \in E$ and the
+  starts $c \cdot b^k$ with $2 \le c \le b - 1$. The \emph{passage} of an input is the successor
+  path from it up to and including its first term in decade $k + 1$ (the \emph{exit}
+  $b^{k+1} + u'$), or up to the landmine $b^{k+1} - r$ where it dies. We record the exit or
+  landmine, the leading digits $d$ of the branch points on the way, and the numbers of steps.
+\end{definition}
+
+A passage consists of $b - 1$ or fewer stretches of constant leading digit, each of which is a
+transition of~\cite{dbts} between consecutive danger intervals. By~\cite[Proposition~8]{dbts},
+passages depend on $k$ only modulo $L(10) = 924$ for $k$ large enough. The branch points and
+landmines lie in the danger intervals, so the same argument applies to the branch points on a
+passage.
+
+\paragraph{Implementation.}
+Let $M$ be the least common multiple of all block increments $D_f(x)$; in base 10,
+$M = 2^5 \cdot 3^3 \cdot 5^3 \cdot 7 \cdot 11 \cdot 13 \cdot 23 \cdot 29 = 72\,108\,036\,000$, and
+$L(10) = 924$ is the period of $10^k \bmod M$, the lcm of the orders of $10$ modulo
+$27, 7, 11, 13, 23, 29$, namely $3, 6, 2, 6, 22, 28$. Instead of $b^k$ we compute with a
+representative $B \equiv b^k \pmod M$ with $2b^2 \le B \le b^k$, writing numbers of the decade as
+$f B + o$. The path near each boundary depends only on the distance to it, and in the middle of a
+stretch the path advances by whole blocks, so the exits, landmines and branch points are the same as
+for $b^k$, and the numbers of steps differ by $(b^k - B)\, b / D$ per stretch, where $D$ is the block
+increment of the stretch. This makes term indices exact as well. The representatives repeat from
+$k = 11$ on, so the table consists of the passages through the decades $11, \dots, 934$, one for each
+of the $54$ inputs, $924 \cdot 54 = 49\,896$ in total; this is also the number of vertices counted
+by the program of~\cite{dbtscode} for $b = 10$.
+
+\todo{State precisely which form of~\cite[Proposition~8]{dbts} we use (branch points, step counts),
+and whether the proof there covers it or needs a short supplement.}
+
+\paragraph{Validation.}
+\begin{itemize}
+  \item For bases $3, 4, 5, 6$ and $10$, the passages computed with the reduced $B$ agree with those
+        computed with the real $b^k$ (exit, landmine, branch points and step counts) for the
+        first $30$ decades of the periodic range and for $k = 400, 401, 402$.
+  \item Passages through small decades agree with step-by-step computation, including the positions
+        of all branch points.
+  \item In base 3 the table has period $4$ and entry offsets $\{0, 2, 3, 6\}$, and it reproduces the
+        transition table in the proof of Theorem~9.1 of~\cite{comma}.
+\end{itemize}

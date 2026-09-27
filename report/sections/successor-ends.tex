@@ -1,0 +1,95 @@
+\section{Start and end points of successor sequences}
+\label{sec:ends}
+
+For $2 \le c \le 9$ and $j \ge 2$, the successor sequence starting at $c \cdot 10^j$ ends at a
+landmine $10^m - r$ with $r \in \{19, 28, \dots, 82\}$. We call $m - j$ its \emph{lifetime} in
+decades. In the terminology of~\cite{dbts}, these sequences are the paths of $G'_{10}$, and several
+of the observations below are direct consequences of the structure established there. We first made
+them by direct computation for all $c$ and $366 \le j < 2274$ (about $15\,000$ sequences); they are
+reproduced for all $j$ by the decade table of Section~\ref{sec:table}.
+
+\begin{observation}[Periodicity]
+  \label{obs:periodic}
+  $(m - j, r)$ depends only on $c$ and $j \bmod 924$, for all $j \ge 5$. No smaller period works,
+  neither for the pair nor for $m - j$ or $r$ alone. Some starts with $j \le 4$ do not follow the
+  periodic pattern.
+\end{observation}
+
+The period is $L(10) = 924$ of~\cite[Proposition~8]{dbts}; the observation adds that it is sharp
+and that it applies from $j = 5$ on.
+
+\begin{observation}[Entry offsets and balance]
+  \label{obs:balance}
+  For $k \ge 3$, the first term $\ge 10^k$ of a successor path is $10^k + u$ with $u$ in the set
+  \[
+    E = \{10a : 0 \le a \le 9\} \cup \{10a + e : 0 \le a,\ a + 2 \le e \le 9\}
+  \]
+  of $46$ offsets. In every decade $k \ge 3$, the $46$ entries and the $8$ starts are mapped
+  one-to-one onto the $46$ exits into decade $k + 1$ and the $8$ landmines of the decade.
+\end{observation}
+
+The $46 + 8 = 54$ outcomes correspond to the $|U(10, 1)| = 54$ values of $u$ in~\cite{dbts}: the
+last term below $10^{k+1}$ is either a landmine or the predecessor of an exit. The balance is the
+decade-level form of the fact that $G'_{10}$ is a disjoint union of paths starting at the starts;
+the implementation of~\cite{dbts} checks finiteness by exactly this count.
+
+Every landmine is the end of exactly one successor path, starting either at some $c \cdot 10^j$ or
+at one of the $54$ non-successors below $100$ (the list (4.1) of~\cite{comma}). The latter all die
+below $10^{23}$, the last being the sequence from $40$, which ends at $10^{23} - 46$. So every
+landmine above $10^{23}$ is the end of exactly one successor sequence starting at some
+$c \cdot 10^j$.
+
+\paragraph{Mean lifetime.}
+Counting decade boundaries over one period of $G'_b$ gives the mean lifetime exactly: each of the
+$(b-2) L(b)$ paths starting in one period crosses as many decade boundaries as its lifetime, and each
+of the $|U(b, 1)|\, L(b)$ boundary points lies on exactly one path. Hence, in any base in which all
+comma sequences are finite,
+\[
+  \text{mean lifetime} = \frac{|U(b, 1)|}{b - 2} = \frac{(b-1)(b+2)}{2(b-2)} = \frac{b+3}{2} + \frac{2}{b-2}
+\]
+decades, averaged over the starts $c \cdot b^j$ of one period. In base 10 this is $27/4$; we
+confirmed the formula numerically for $3 \le b \le 10$. The lifetimes decay roughly geometrically,
+by a factor close to $1 - 8/54$ per decade in base 10, and the longest lifetime is $45$ decades.
+
+\begin{remark}
+  \cite[Conjecture~17]{dbts} states that the path length $|P|$ in $G'_b$ is approximately
+  exponentially distributed with mean close to $b/2 + 1$. If $|P|$ is measured in decade
+  boundaries and averaged over paths, the formula above gives its mean exactly, which exceeds
+  $b/2 + 1$ by $1/2 + 2/(b-2)$. \todo{Check that this reading of $|P|$ matches~\cite{dbts}, whose
+  Section~5 averages over vertices rather than paths.}
+\end{remark}
+
+\paragraph{Where sequences end.}
+Table~\ref{tab:cr} shows how the end residue $r$ depends on the start digit $c$ over one period.
+The distribution is close to uniform, with one conspicuous exception, $c = 7$, $r = 28$.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}c*{8}{r}@{}}
+    \toprule
+    $c \setminus r$ & 19 & 28 & 37 & 46 & 55 & 64 & 73 & 82 \\
+    \midrule
+    2 & 120 & 107 & 110 & 109 & 126 & 136 & 102 & 114 \\
+    3 & 129 &  97 & 125 & 111 & 118 & 123 & 118 & 103 \\
+    4 & 100 & 105 & 123 & 123 & 128 & 101 & 129 & 115 \\
+    5 & 136 &  94 & 106 & 119 & 109 & 111 & 122 & 127 \\
+    6 & 123 &  75 & 116 & 116 & 120 & 113 & 135 & 126 \\
+    7 &  96 & 234 & 119 & 114 &  87 &  91 &  96 &  87 \\
+    8 & 120 &  87 & 114 & 119 & 133 & 115 & 106 & 130 \\
+    9 & 100 & 125 & 111 & 113 & 103 & 134 & 116 & 122 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Number of $j$ in one period ($924$ consecutive values) for which the sequence starting at
+  $c \cdot 10^j$ ends at a landmine $10^m - r$.}
+  \label{tab:cr}
+\end{table}
+
+\begin{observation}
+  For every $j \ge 5$ with $j \equiv 5 \pmod 6$, the sequence starting at $7 \cdot 10^j$ ends at
+  $10^{j+1} - 28 = 99\cdots972$, within its own decade.
+\end{observation}
+
+This accounts for $154 = 924 / 6$ of the $234$ cases of $7 \mapsto 28$. The period $6$ is that of
+$10^j$ modulo $13$, which divides $D_7 = 520$; a sequence starting at $7 \cdot 10^j$ passes only
+through stretches with $D_7 = 520$, $D_8 \in \{480, 580\}$ and $D_9 = 540$ before its first
+landmine. \todo{Turn this into a proof, and explain why $6 \mapsto 28$ is correspondingly rare.}

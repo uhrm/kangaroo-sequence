@@ -1,0 +1,49 @@
+\section{The trees of the child graph}
+\label{sec:trees}
+
+Section~11 of~\cite{comma} reports that, of the 50 trees of the base-10 child graph, only the tree
+rooted at $20$ is infinite, and that the longest-lived rival, rooted at $30$, persists until
+$10^{365} - 82$. As a first check of our implementation we reproduced this by walking every tree
+completely, using the child-graph jump bound of Section~\ref{sec:jumps} for unbranched stretches.
+Since paths never merge, each node is visited at most once, and the cost grows with the number of
+digits reached and the number of branch points rather than with the number of nodes.
+
+\begin{proposition}[{cf.~\cite[\S11]{comma}}]
+  Following all paths up to $1000$ digits, every tree of the base-10 child graph except the one
+  rooted at $20$ is finite. The tree rooted at $30$ has $1007$ branch points and $1008$ leaves; its
+  largest leaf is exactly $10^{365} - 82$, reached after about $2 \cdot 10^{363}$ steps from the
+  root. No other tree reaches $10^{133}$.
+\end{proposition}
+
+\begin{remark}
+  Section~11 of~\cite{comma} says that the root-$30$ path ``persisted for $10^{365} - 82$ terms''.
+  The number $10^{365} - 82$ is the value of the landmine; the path itself has about
+  $2 \cdot 10^{363}$ terms, in line with the rule of thumb that the $n$-th term is about $50 n$.
+\end{remark}
+
+Table~\ref{tab:trees} lists the trees with at least ten leaves. All 49 finite trees are listed in
+Appendix~\ref{app:trees}. Trees without branch points are single successor paths, and for the roots
+$3, 4, 7$ they reproduce the corresponding entries of (1.2) and (1.3).
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrcc@{}}
+    \toprule
+    root & leaves & branch points & height (edges) & largest leaf \\
+    \midrule
+     6 &   32 &   31 & $\approx 10^{40.31}$  & $\approx 10^{42}$ \\
+    13 &   66 &   65 & $\approx 10^{85.31}$  & $\approx 10^{87}$ \\
+    17 &   31 &   30 & $\approx 10^{52.32}$  & $\approx 10^{54}$ \\
+    30 & 1008 & 1007 & $\approx 10^{363.30}$ & $10^{365} - 82$ \\
+    38 &   10 &    9 & $\approx 10^{15.32}$  & $\approx 10^{17}$ \\
+    64 &  285 &  284 & $\approx 10^{130.33}$ & $\approx 10^{132}$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{The finite trees of the base-10 child graph with at least ten leaves.}
+  \label{tab:trees}
+\end{table}
+
+Every positive integer lies in exactly one tree. As the 49 finite trees contain no number above
+$10^{365}$, the tree rooted at $20$ contains \emph{every} number above $10^{365}$. In particular,
+above this bound its successor paths are exactly the successor sequences starting at the numbers
+$c \cdot 10^j$, which motivates the next section.

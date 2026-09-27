@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Marks unfinished parts of the draft.
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+% Leading digit, as in the paper.
+\newcommand{\lead}{\delta}
+\newcommand{\oeis}[1]{\href{https://oeis.org/#1}{#1}}
+
+\title{The infinite path of the base-10 comma child graph\\ is unique and eventually periodic}
+\author{\todo{authors}}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  Angelini, Branicky, Resta, Sloane and Wilson~\cite{comma} introduced the child graph of comma
+  sequences and showed that it contains an infinite path; the lexicographically earliest one in
+  base 10 is \oeis{A367620}, whose sequence of branch choices \oeis{A399179} is known for only
+  30 terms. Building on the finite-graph reduction of Dougherty-Bliss and Ter-Saakov~\cite{dbts},
+  who proved that all comma sequences in bases 3 to 633 are finite, we extend their decade
+  automaton to the child graph. In base 10 we find that the infinite path is unique, and that its
+  branch choices are periodic from the eleventh decade on, with $314$ choices per period of $924$
+  decades; in particular \oeis{A399179} is given by a finite automaton, as suggested in its OEIS
+  entry. Along the way we record a correction to the skip-ahead formula of~\cite{comma}, and exact
+  statistics of where successor sequences end, including a closed form for their mean lifetime.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/preliminaries}
+\input{sections/block-jumps}
+\input{sections/child-trees}
+\input{sections/successor-ends}
+\input{sections/decade-table}
+\input{sections/consequences}
+\input{sections/open-questions}
+
+\appendix
+\input{sections/appendix}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

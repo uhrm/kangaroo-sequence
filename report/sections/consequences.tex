@@ -1,0 +1,66 @@
+\section{The child graph in base 10}
+\label{sec:consequences}
+
+\subsection{Successor sequences}
+
+Following each entry of the table until it dies, we confirm the result of~\cite{dbts} for $b = 10$:
+the successor automaton has no cycle, so every base-10 comma sequence is finite. In addition, every
+successor path that enters a decade $k \ge 11$ dies within $44$ decades, and every sequence starting
+at $c \cdot 10^j$ with $j \ge 11$ within $45$ decades. In base 3 the same computation recovers
+Theorem~9.1 of~\cite{comma}, with a maximum lifetime of $6$ decades.
+
+\subsection{The infinite path is unique}
+
+In the child graph, a path may switch at a branch point in decade $k$ with leading digit $d$ to the
+start $(d + 1) \cdot 10^k$. The set of exits reachable from an input is therefore also given by the
+table, and the entries from which an infinite path continues are the greatest fixed point of the
+condition ``some reachable exit is again such an entry''.
+
+\begin{theorem}
+  \label{thm:unique}
+  For every decade $k \ge 11$ there is exactly one offset $u_k \in E$ such that an infinite path of
+  the base-10 child graph passes through $10^k + u_k$. Consequently the child graph has exactly one
+  infinite path starting at a root, namely \oeis{A367620}, which starts at $20$.
+\end{theorem}
+
+\begin{proof}
+  The first statement is a finite computation on the table. Every infinite path meets every decade
+  from some point on, so it passes through $10^k + u_k$ for all large $k$. Since every node has a
+  unique parent, two paths through the same node share all earlier nodes; hence all infinite paths
+  from roots coincide.
+\end{proof}
+
+All $46$ offsets occur as $u_k$, each for between $12$ and $26$ of the $924$ decades of a period.
+Theorem~\ref{thm:unique} answers the question at the end of Section~11 of~\cite{comma}, where
+several candidate continuations remained, and is the base-10 analogue of Theorem~10.1
+of~\cite{comma} for base 3; our computation reproduces that theorem, including the alternation
+between the smaller and the larger child.
+
+\subsection{The branch choices are periodic}
+
+Following \oeis{A367620} decade by decade, at each branch point we take the smaller child unless no
+infinite path continues from it. This decision depends only on the state $(k \bmod 924, u_k)$, so:
+
+\begin{theorem}
+  \label{thm:periodic}
+  The branch choices \oeis{A399179} of \oeis{A367620} are periodic from decade $11$ on, with period
+  $924$ decades. One period contains $314$ branch points, at $171$ of which the path takes the
+  larger child. Before decade $11$ there is a single branch point, $1\,9^8\,18 = 19999999918$ in
+  decade $10$, where the path takes the smaller child.
+\end{theorem}
+
+In particular, \oeis{A399179} is given by a finite automaton, as suggested in its OEIS entry, and
+all its terms can be listed: the first term, followed by the $314$ terms of Appendix~\ref{app:choices}
+repeated forever. The first $30$ terms agree with the known ones,
+\[
+  \texttt{001110011101100001100101111110},
+\]
+and we reach the next branch point $2\,9^{84}\,27$ at term $\approx 10^{84.79}$, matching the
+``about $10^{84.8}$'' of~\cite[\S11]{comma}.
+
+\begin{remark}
+  Counting the root $20$ as term $1$, we find the first branch point $19999999918$ at term
+  $412\,987\,859$, both via the table and by direct step-by-step counting. Section~11
+  of~\cite{comma} and \oeis{A367620} (offset $1$) give $a(412\,987\,860) = 19999999918$.
+  \todo{Resolve this off-by-one.}
+\end{remark}
