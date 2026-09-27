@@ -31,3 +31,8 @@ which the devcontainer installs together with uv (see `.devcontainer/post-create
 ```sh
 cd report && mkdir -p build && tectonic -X compile main.tex --outdir build
 ```
+
+## Use of AI assistance
+
+The code, the computations and the first draft of the report were produced in a conversation with
+Claude Opus 5.5 in Claude Code, which is public at: TODO (link).
