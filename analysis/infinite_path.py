@@ -11,6 +11,7 @@ Run with: uv run python analysis/infinite_path.py [number of branch points to pr
 
 import math
 import sys
+from collections import Counter
 
 from kangaroo_sequence.decades import BranchChoice, branch_point, decade_period, earliest_infinite_path, immortal_entries
 
@@ -19,7 +20,10 @@ K, P = decade_period(BASE)
 count = int(sys.argv[1]) if len(sys.argv) > 1 else 40
 
 sizes = {len(entries) for entries in immortal_entries(BASE).values()}
-print(f"Immortal entries per decade (k >= {K}): {sizes}\n")
+print(f"Immortal entries per decade (k >= {K}): {sizes}")
+uses = Counter(u for entries in immortal_entries(BASE).values() for u in entries)
+print(f"  {len(uses)} different offsets occur, each in {min(uses.values())} to {max(uses.values())} "
+      f"of the {P} decades of a period\n")
 
 
 def describe(k: int, d: int) -> str:
@@ -38,6 +42,11 @@ for event in earliest_infinite_path(ROOT, BASE):
         print(f"{len(choices):>4} {int(event.upper):>6} {index:>14}  {describe(event.k, event.d)}")
         if len(choices) == count:
             break
+
+# The first 30 terms of A399179, as known before this computation.
+A399179 = "001110011101100001100101111110"
+ours = "".join(str(int(c.upper)) for c in choices[: len(A399179)])
+print(f"\nThe first {len(ours)} choices agree with the known terms of A399179: {ours == A399179[: len(ours)]}")
 
 # Periodicity: collect the choices decade by decade without computing term indices.
 per_decade: dict[int, list[int]] = {}

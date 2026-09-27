@@ -10,8 +10,8 @@ Run with: uv run python analysis/successor_ends.py
 from collections import Counter
 from fractions import Fraction
 
-from kangaroo_sequence import comma_sequence_end
-from kangaroo_sequence.decades import decade_period, entry_offsets, start_end, successor_lifetimes, transition_table
+from kangaroo_sequence import comma_sequence_end, comma_successor
+from kangaroo_sequence.decades import decade_period, decade_row, entry_offsets, start_end, successor_lifetimes
 
 BASE = 10
 LANDMINES = tuple(range(19, 83, 9))
@@ -33,14 +33,25 @@ print("  (cross-checked against direct computation for", len(sample), "starts)\n
 # 2. Decade entries and the balance in each decade.
 offsets = entry_offsets(BASE)
 print(f"Sequences enter decade k >= 3 at 10^k + u for {len(offsets)} offsets u:\n  {offsets}")
-table = transition_table(BASE)
-bijective = all(
-    sorted(p.exit for p in [*row.entries.values(), *row.starts.values()] if p.exit is not None) == list(offsets)
-    for row in table
-)
-print(f"In every decade the {len(offsets)} entries and {len(STARTS)} starts map one-to-one onto the "
-      f"{len(offsets)} exits and {len(LANDMINES)} landmines: {bijective}")
-print("  so start -> end is a bijection between {c * 10^j} and the landmines.\n")
+def balanced(row) -> bool:
+    passages = [*row.entries.values(), *row.starts.values()]
+    return (sorted(p.exit for p in passages if p.exit is not None) == list(offsets)
+            and sorted(p.landmine for p in passages if p.landmine is not None) == list(LANDMINES))
+
+
+# Decades 3..K-1 are computed with the real 10^k, decades K..K+P-1 cover the periodic range.
+balance = all(balanced(decade_row(k, BASE)) for k in range(3, K + P))
+print(f"In every decade k >= 3 the {len(offsets)} entries and {len(STARTS)} starts map one-to-one onto the "
+      f"{len(offsets)} exits and {len(LANDMINES)} landmines: {balance}")
+
+# Successor sequences starting below 100 also end at landmines; find the last one to die.
+small_starts = [s for s in range(1, BASE**2) if not any(comma_successor(p, BASE) == s for p in range(1, s))]
+small_ends = {s: comma_sequence_end(s, BASE).last for s in small_starts}
+last = max(small_starts, key=small_ends.get)
+m = len(str(small_ends[last]))
+print(f"The {len(small_starts)} non-successors below {BASE**2} all end below 10^{m}; the last, from {last}, "
+      f"ends at 10^{m} - {BASE**m - small_ends[last]}.")
+print(f"  So every landmine above 10^{m} ends exactly one sequence starting at some c * 10^j.\n")
 
 # 3. Lifetimes.
 period = [ends[c, j] for c in STARTS for j in range(K, K + P)]

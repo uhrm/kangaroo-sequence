@@ -1,0 +1,17 @@
+Block increments D_f(x) of equation (6.4) in base 10:
+  f = 1: [460]
+  f = 2: [420, 520]
+  f = 3: [480]
+  f = 4: [440, 540]
+  f = 5: [300, 400, 500, 600, 700]
+  f = 6: [460, 560]
+  f = 7: [520]
+  f = 8: [480, 580]
+  f = 9: [540]
+
+M = lcm of all D_f(x) = 72108036000 = 2^5 * 3^3 * 5^3 * 7 * 11 * 13 * 23 * 29
+Orders of 10 modulo the prime powers of M coprime to 10: {27: 3, 7: 6, 11: 2, 13: 6, 23: 22, 29: 28}
+Period of 10^k mod M: 924
+
+The decade table repeats with period P = 924 from decade K = 11 on.
+Entry offsets (46): (0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 46, 47, 48, 49, 50, 57, 58, 59, 60, 68, 69, 70, 79, 80, 90)

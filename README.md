@@ -15,6 +15,8 @@ Run the tests with `uv run pytest`.
 ## Analysis
 
 - `uv run python -m kangaroo_sequence.child_graph`: explore the 50 child trees (§4, §11).
+- `uv run python analysis/decade_period.py`: block increments, the modulus M and the period 924 of the decade table.
+- `uv run python analysis/mean_lifetime.py`: the mean lifetime of successor sequences in bases 3 to 10.
 - `uv run python analysis/successor_ends.py`: regularities between start and end points of successor sequences.
 - `uv run python analysis/infinite_path.py [n]`: the unique infinite path A367620 and its periodic branch choices.
 - `uv run python analysis/export_table.py`: write the 924-periodic decade transition table to `analysis/output/`.

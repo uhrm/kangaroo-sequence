@@ -5,8 +5,9 @@ Decade rows repeat with period P = 924 from decade K = 11 on.
 
 Sequences enter decade k >= 3 at 10^k + u for 46 offsets u:
   (0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19, 20, 24, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 46, 47, 48, 49, 50, 57, 58, 59, 60, 68, 69, 70, 79, 80, 90)
-In every decade the 46 entries and 8 starts map one-to-one onto the 46 exits and 8 landmines: True
-  so start -> end is a bijection between {c * 10^j} and the landmines.
+In every decade k >= 3 the 46 entries and 8 starts map one-to-one onto the 46 exits and 8 landmines: True
+The 54 non-successors below 100 all end below 10^23; the last, from 40, ends at 10^23 - 46.
+  So every landmine above 10^23 ends exactly one sequence starting at some c * 10^j.
 
 Mean lifetime m - j over one period: 27/4 = 1 + 46/8
 Longest lifetime: 45 decades (from a start), 44 decades (from a decade entry)
