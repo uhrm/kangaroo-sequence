@@ -64,11 +64,15 @@ def pattern(first: int, last: int) -> str:
     return "".join(str(c) for k in range(first, last) for c in per_decade.get(k, []))
 
 
-one_period = pattern(K, K + P)
-assert one_period == pattern(K + P, K + 2 * P)
-print(f"\nFrom decade {K} on, the choices repeat every {P} decades:")
-print(f"  {len(one_period)} branch points per period, {one_period.count('1')} of them take the larger child.")
-print(f"  choices before decade {K}: {pattern(0, K)}")
-print(f"  choices in one period:")
-for i in range(0, len(one_period), 100):
-    print("   ", one_period[i : i + 100])
+# By the corollary, decades k and k + P agree for k >= 5, and the first branch point is in decade 10,
+# so A399179 should be purely periodic: the choices in decades 10..10+P-1 repeat forever.
+first = min(per_decade)
+period = pattern(first, first + P)
+assert first >= 5 and pattern(first + P, first + 2 * P) == period
+sequence = pattern(0, K + 2 * P)
+smallest = min(p for p in range(1, len(period) + 1) if all(sequence[n] == sequence[n + p] for n in range(len(sequence) - p)))
+print(f"\nThe first branch point is in decade {first}; A399179 is purely periodic with smallest period {smallest}.")
+print(f"  One period spans {P} decades; {period.count('1')} of its {len(period)} choices take the larger child.")
+print(f"  The first {len(period)} terms (decades {first} to {first + P - 1}):")
+for i in range(0, len(period), 100):
+    print("   ", period[i : i + 100])

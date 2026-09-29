@@ -10,6 +10,7 @@ from kangaroo_sequence.decades import (
     branch_point,
     decade_modulus,
     decade_period,
+    decade_row,
     earliest_infinite_path,
     entry_offsets,
     entry_passage,
@@ -142,3 +143,25 @@ def test_earliest_infinite_path_base_3_matches_paper():
     assert [c.upper for c in choices] == [False, True] * 6
     assert [c.k for c in choices] == [0, 2, 5, 6, 9, 10, 13, 14, 17, 18, 21, 22]
     assert all(c.d == 1 for c in choices)
+
+
+def passage_outline(row) -> dict:
+    return {
+        (kind, value): (p.exit, p.landmine, tuple(d for d, _, _ in p.branch_points))
+        for kind, passages in (("entry", row.entries), ("start", row.starts))
+        for value, p in passages.items()
+    }
+
+
+def test_periodic_from_decade_5():
+    # Corollary: decades k and k + 924 agree for k >= 5, and the threshold is sharp.
+    K, P = decade_period(10)
+    agree = {k: passage_outline(decade_row(k)) == passage_outline(decade_row(k + P)) for k in range(3, K)}
+    assert all(agree[k] for k in range(5, K))
+    assert not agree[3] and not agree[4]
+
+
+def test_a399179_is_purely_periodic():
+    choices = [int(c.upper) for c in branch_choices(20, 10, 3 * 314, indices=False)]
+    assert all(choices[n] == choices[n + 314] for n in range(2 * 314))
+    assert not any(all(choices[n] == choices[n + p] for n in range(3 * 314 - p)) for p in (1, 2, 157))

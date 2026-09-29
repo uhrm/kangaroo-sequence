@@ -6,7 +6,7 @@ Run with: uv run python analysis/decade_period.py [base]
 import sys
 
 from kangaroo_sequence import block_increment
-from kangaroo_sequence.decades import block_modulus, decade_period, entry_offsets
+from kangaroo_sequence.decades import block_modulus, decade_period, decade_row, entry_offsets
 
 base = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 
@@ -43,3 +43,15 @@ print(f"Period of {base}^k mod M: {order(coprime) if coprime > 1 else 1}")
 K, P = decade_period(base)
 print(f"\nThe decade table repeats with period P = {P} from decade K = {K} on.")
 print(f"Entry offsets ({len(entry_offsets(base))}): {entry_offsets(base)}")
+
+
+def outline(row) -> dict:
+    return {
+        (kind, value): (p.exit, p.landmine, tuple(d for d, _, _ in p.branch_points))
+        for kind, passages in (("entry", row.entries), ("start", row.starts))
+        for value, p in passages.items()
+    }
+
+
+# The table is computed from decade K on; compare the earlier decades with their counterparts one period later.
+print("\nDecades k < K that agree with decade k + P:", [k for k in range(3, K) if outline(decade_row(k, base)) == outline(decade_row(k + P, base))])
