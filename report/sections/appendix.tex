@@ -2,7 +2,7 @@
 \label{app:software}
 
 All computations use the Python package in the repository~\cite{repo}. The numbers and tables in
-this report were produced at commit {\footnotesize\href{https://github.com/uhrm/kangaroo-sequence/tree/1b7b39cd0583ef7f291471e53b7ab4271da436fa}{\texttt{1b7b39cd0583ef7f291471e53b7ab4271da436fa}}},
+this report were produced at commit {\footnotesize\href{https://github.com/uhrm/kangaroo-sequence/tree/dc7a029b6d7fb502f8d0b2d5a39d9350eafd9f8d}{\texttt{dc7a029b6d7fb502f8d0b2d5a39d9350eafd9f8d}}},
 where the outputs of all scripts are stored in \texttt{analysis/output/}. The main modules are
 \begin{itemize}
   \item \texttt{comma.py}: children, successors, and the block jumps of Section~\ref{sec:jumps};
@@ -84,15 +84,16 @@ decimals of the exponent. Every largest leaf is a landmine, given exactly.
 \section{Branch choices of A367620 over one period}
 \label{app:choices}
 
-The choices \oeis{A399179} at the $314$ branch points of \oeis{A367620} in decades $11, \dots, 934$
-($0$ = smaller child, $1$ = larger child); the pattern repeats every $924$ decades.
+The first $314$ terms of \oeis{A399179}, the choices at the branch points of \oeis{A367620} in
+decades $10, \dots, 933$ ($0$ = smaller child, $1$ = larger child); the sequence repeats them forever
+(Theorem~\ref{thm:periodic}).
 \begin{center}
   \small
-  \texttt{0111 0011 1011 0000 1100 1011 1111 0000 1100 1001 0000 1101}\\
-  \texttt{0100 0100 0011 1001 0110 0011 0011 1000 1111 1111 0010 1110}\\
-  \texttt{0111 1100 1011 1111 0000 0110 0000 0001 0111 1101 1111 0101}\\
-  \texttt{1101 1111 1101 1010 0110 0110 0010 1100 1001 1110 0011 1110}\\
-  \texttt{0011 0111 0110 0100 1000 1101 0110 1110 0100 1011 0001 1000}\\
-  \texttt{0111 1101 1100 0100 0101 1100 0011 1111 1010 1010 0001 1100}\\
-  \texttt{1000 1111 0101 0111 1101 0110 11\phantom{xx xxxx xxxx xxxx xxxx xxxx}}
+  \texttt{0011 1001 1101 1000 0110 0101 1111 1000 0110 0100 1000 0110}\\
+  \texttt{1010 0010 0001 1100 1011 0001 1001 1100 0111 1111 1001 0111}\\
+  \texttt{0011 1110 0101 1111 1000 0011 0000 0000 1011 1110 1111 1010}\\
+  \texttt{1110 1111 1110 1101 0011 0011 0001 0110 0100 1111 0001 1111}\\
+  \texttt{0001 1011 1011 0010 0100 0110 1011 0111 0010 0101 1000 1100}\\
+  \texttt{0011 1110 1110 0010 0010 1110 0001 1111 1101 0101 0000 1110}\\
+  \texttt{0100 0111 1010 1110 1111 1010 11\phantom{xx xxxx xxxx xxxx xxxx xxxx}}
 \end{center}

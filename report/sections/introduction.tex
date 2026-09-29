@@ -26,9 +26,9 @@ of~\cite{dbts}, extended to the child graph. Our main results concern the child 
 \begin{enumerate}[label=(\roman*)]
   \item The child graph has exactly one infinite path starting at a root; it is \oeis{A367620}
         (Theorem~\ref{thm:unique}).
-  \item The branch choices of this path, \oeis{A399179}, are periodic from decade $11$ on with
-        period $924$ decades, $314$ choices per period (Theorem~\ref{thm:periodic}). This gives all
-        terms of \oeis{A399179}; its first $30$ terms agree with the known ones.
+  \item The branch choices of this path, \oeis{A399179}, are purely periodic with period $314$,
+        one period spanning $924$ decades (Theorem~\ref{thm:periodic}). This gives all terms of
+        \oeis{A399179}; its first $30$ terms agree with the known ones.
 \end{enumerate}
 We also record some smaller observations:
 \begin{enumerate}[label=(\roman*),resume]
@@ -42,7 +42,8 @@ We also reproduce, independently, the exploration of the 50 child trees in Secti
 of~\cite{comma} (Section~\ref{sec:trees}), and the finiteness of all base-10 comma sequences
 from~\cite{dbts}.
 
-Our results rely on the periodicity statement of~\cite[Proposition~8]{dbts}, applied also to the
-positions of branch points and to step counts (Section~\ref{sec:table}). Apart from that, they are
+Our results rely on the periodicity statement of~\cite[Proposition~8]{dbts}, which we state and
+prove in the form we need, including branch points and an explicit range
+(Lemma~\ref{lem:reduction} and Corollary~\ref{cor:period}). Apart from that, they are
 computational. The code and all outputs are available at~\cite{repo}; Appendix~\ref{app:software}
 lists the commit and the scripts that reproduce each result.

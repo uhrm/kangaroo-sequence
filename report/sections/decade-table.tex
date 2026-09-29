@@ -12,28 +12,81 @@ danger intervals, extended by the information needed for the child graph.
   landmine, the leading digits $d$ of the branch points on the way, and the numbers of steps.
 \end{definition}
 
-A passage consists of $b - 1$ or fewer stretches of constant leading digit, each of which is a
-transition of~\cite{dbts} between consecutive danger intervals. By~\cite[Proposition~8]{dbts},
-passages depend on $k$ only modulo $L(10) = 924$ for $k$ large enough. The branch points and
-landmines lie in the danger intervals, so the same argument applies to the branch points on a
-passage.
+A passage consists of at most $b - 1$ stretches of constant leading digit. Let $M$ be the least
+common multiple of all block increments $D_f(x)$; in base 10,
+$M = 2^5 \cdot 3^3 \cdot 5^3 \cdot 7 \cdot 11 \cdot 13 \cdot 23 \cdot 29 = 72\,108\,036\,000$.
+
+\begin{lemma}
+  \label{lem:reduction}
+  Let $k, k' \ge 3$ with $b^k \equiv b^{k'} \pmod M$. Then every input has the same exit or landmine
+  in decade $k$ as in decade $k'$, and passes branch points with the same leading digits in the
+  same order. The numbers of steps of its passages differ by $b\,(b^k - b^{k'}) \sum 1/D$, the sum
+  running over the stretches of the passage, with $D$ the block increment of each stretch.
+\end{lemma}
+
+\begin{proof}
+  Write $P = b^k$ and a term of stretch $f$ of decade $k$ as $n = fP + o$ with $0 \le o < P$, and
+  let $t = P - o$ be its distance to the end of the stretch.
+
+  \emph{The rule near a boundary.} As $b \mid P$, the last digit of $n$ is $x = (-t) \bmod b$. A
+  child $n + xb + e$ is less than $n + b^2 \le n + P$, so its leading digit is $f$ if $xb + e < t$,
+  and $f + 1$ otherwise, or $1$ in decade $k + 1$ if $f = b - 1$. Hence $n$ has the child with
+  $e = f$ if and only if $xb + f < t$, the child with $e = f + 1$ (or $e = 1$ if $f = b - 1$) if
+  and only if $xb + e \ge t$, and no other child. Which children exist, and where they lie relative
+  to the boundary, therefore depends only on $f$ and $t$. In particular, a term with $t > b^2$ has
+  the single child $n + xb + f$, and branch points and landmines have $t \le b^2$.
+
+  \emph{The middle of a stretch.} A passage enters each stretch at an offset $o_0 < b^2$: the
+  inputs have $o_0 = u \in E$ or $o_0 = 0$, and a child lies less than $b^2$ above its parent.
+  So $t_0 = P - o_0 > b^3 - b^2 \ge b^2$. Let $x_0$ be the last digit on entry and $D = D_f(x_0)$.
+  As long as the distance exceeds $b^2$, the terms are $n_0 + \sigma_j$, where $\sigma_j$ are the
+  partial sums of the cycle of comma-numbers, with $\sigma_{j + b} = \sigma_j + D$. Let
+  $q = \lfloor (t_0 - b^2 - 1) / D \rfloor \ge 0$. All terms up to $n_0 + qD$ have distance at
+  least $t_0 - qD > b^2$, so the path reaches $n_0 + qD$ after $qb$ steps, with last digit $x_0$ and
+  distance $t_0 - qD = b^2 + 1 + \bigl((t_0 - b^2 - 1) \bmod D\bigr)$. By the rule near a boundary,
+  everything that follows in the stretch --- the remaining steps, a branch point or landmine on the
+  way, and the offset at which the path enters the next stretch or decade --- depends only on $f$,
+  $x_0$ and this distance, hence on $f$, $x_0$ and $t_0 \bmod D$.
+
+  \emph{Comparing decades.} In decades $k$ and $k'$ an input enters its first stretch at the same
+  offset, so the distances differ by $b^k - b^{k'}$, a multiple of $D$. By induction over the
+  stretches, the passages agree stretch by stretch, and in each stretch $q$ differs by
+  $(b^k - b^{k'}) / D$, that is, the number of steps by $b\,(b^k - b^{k'}) / D$.
+\end{proof}
+
+The second part of the proof is the argument of~\cite[Proposition~8]{dbts}, where the distance
+$b^k + u$ is reduced modulo the sum of one cycle, $D_f(x)$ or a divisor of it. The lemma adds what we
+need beyond their statement: an explicit range of $k$, the branch points, and the step counts. The
+branch points could also be read off their points $(d, u, k)$: since the smaller child of the branch
+point below $(d+1)\,b^k$ is $(d+1)\,b^k - 1$~\cite[Theorem~5.2]{comma}, a successor path passes it if
+and only if $(d+1)\,b^k - 1$ is its last term below $(d+1)\,b^k$, i.e.\ $u = 1$. The step counts are
+used only to compute term indices, not in the results of Section~\ref{sec:consequences}.
+
+\begin{corollary}
+  \label{cor:period}
+  In base 10, the passages through decades $k$ and $k + 924$ agree, in the sense of
+  Lemma~\ref{lem:reduction}, for all $k \ge 5$.
+\end{corollary}
+
+\begin{proof}
+  For $k \ge 5$, $10^k$ is divisible by $2^5 \cdot 5^3$, and modulo the remaining factor
+  $3^3 \cdot 7 \cdot 11 \cdot 13 \cdot 23 \cdot 29$ of $M$ it has period $924$, the lcm of the
+  orders $3, 6, 2, 6, 22, 28$ of $10$ modulo $27, 7, 11, 13, 23, 29$.
+\end{proof}
+
+The threshold is sharp: some passages through decades $3$ and $4$ differ from those through
+decades $927$ and $928$. The period $924$ is $L(10)$ of~\cite{dbts}.
 
 \paragraph{Implementation.}
-Let $M$ be the least common multiple of all block increments $D_f(x)$; in base 10,
-$M = 2^5 \cdot 3^3 \cdot 5^3 \cdot 7 \cdot 11 \cdot 13 \cdot 23 \cdot 29 = 72\,108\,036\,000$, and
-$L(10) = 924$ is the period of $10^k \bmod M$, the lcm of the orders of $10$ modulo
-$27, 7, 11, 13, 23, 29$, namely $3, 6, 2, 6, 22, 28$. Instead of $b^k$ we compute with a
-representative $B \equiv b^k \pmod M$ with $2b^2 \le B \le b^k$, writing numbers of the decade as
-$f B + o$. The path near each boundary depends only on the distance to it, and in the middle of a
-stretch the path advances by whole blocks, so the exits, landmines and branch points are the same as
-for $b^k$, and the numbers of steps differ by $(b^k - B)\, b / D$ per stretch, where $D$ is the block
-increment of the stretch. This makes term indices exact as well. The representatives repeat from
+The proof of Lemma~\ref{lem:reduction} uses $b^k$ only through its residue modulo $M$, the fact that
+it is a multiple of $b$, and $b^k - b^2 \ge b^2$. So it applies verbatim if $b^k$ is replaced by a
+number $B \equiv b^k \pmod M$ with $B \ge 2b^2$, writing the numbers of a decade as $f B + o$, and
+the implementation computes with such representatives; the step counts for $b^k$ follow from those
+for $B$ as in the lemma, which makes term indices exact. Its choice of representatives repeats from
 $k = 11$ on, so the table consists of the passages through the decades $11, \dots, 934$, one for each
-of the $54$ inputs, $924 \cdot 54 = 49\,896$ in total; this is also the number of vertices counted
-by the program of~\cite{dbtscode} for $b = 10$.
-
-\todo{State precisely which form of~\cite[Proposition~8]{dbts} we use (branch points, step counts),
-and whether the proof there covers it or needs a short supplement.}
+of the $54$ inputs, $924 \cdot 54 = 49\,896$ in total; this is also the number of vertices counted by
+the program of~\cite{dbtscode} for $b = 10$. By Corollary~\ref{cor:period}, the table also describes
+the decades $5, \dots, 10$.
 
 \paragraph{Validation.}
 \begin{itemize}

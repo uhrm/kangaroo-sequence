@@ -4,10 +4,10 @@
 \subsection{Successor sequences}
 
 Following each entry of the table until it dies, we confirm the result of~\cite{dbts} for $b = 10$:
-the successor automaton has no cycle, so every base-10 comma sequence is finite. In addition, every
-successor path that enters a decade $k \ge 11$ dies within $44$ decades, and every sequence starting
-at $c \cdot 10^j$ with $j \ge 11$ within $45$ decades. In base 3 the same computation recovers
-Theorem~9.1 of~\cite{comma}, with a maximum lifetime of $6$ decades.
+the successor automaton has no cycle, so every base-10 comma sequence is finite. In addition, by
+Corollary~\ref{cor:period}, every successor path that enters a decade $k \ge 5$ dies within $44$
+decades, and every sequence starting at $c \cdot 10^j$ with $j \ge 5$ within $45$ decades. In base 3
+the same computation recovers Theorem~9.1 of~\cite{comma}, with a maximum lifetime of $6$ decades.
 
 \subsection{The infinite path is unique}
 
@@ -18,14 +18,15 @@ condition ``some reachable exit is again such an entry''.
 
 \begin{theorem}
   \label{thm:unique}
-  For every decade $k \ge 11$ there is exactly one offset $u_k \in E$ such that an infinite path of
+  For every decade $k \ge 5$ there is exactly one offset $u_k \in E$ such that an infinite path of
   the base-10 child graph passes through $10^k + u_k$. Consequently the child graph has exactly one
   infinite path starting at a root, namely \oeis{A367620}, which starts at $20$.
 \end{theorem}
 
 \begin{proof}
-  The first statement is a finite computation on the table. Every infinite path meets every decade
-  from some point on, so it passes through $10^k + u_k$ for all large $k$. Since every node has a
+  The first statement is a finite computation on the table, which covers all decades $k \ge 5$ by
+  Corollary~\ref{cor:period}. Every infinite path meets every decade from some point on, so it
+  passes through $10^k + u_k$ for all large $k$. Since every node has a
   unique parent, two paths through the same node share all earlier nodes; hence all infinite paths
   from roots coincide.
 \end{proof}
@@ -39,19 +40,27 @@ between the smaller and the larger child.
 \subsection{The branch choices are periodic}
 
 Following \oeis{A367620} decade by decade, at each branch point we take the smaller child unless no
-infinite path continues from it. This decision depends only on the state $(k \bmod 924, u_k)$, so:
+infinite path continues from it.
 
 \begin{theorem}
   \label{thm:periodic}
-  The branch choices \oeis{A399179} of \oeis{A367620} are periodic from decade $11$ on, with period
-  $924$ decades. One period contains $314$ branch points, at $171$ of which the path takes the
-  larger child. Before decade $11$ there is a single branch point, $1\,9^8\,18 = 19999999918$ in
-  decade $10$, where the path takes the smaller child.
+  The sequence \oeis{A399179} of branch choices of \oeis{A367620} is purely periodic with smallest
+  period $314$: its first $314$ terms repeat forever. They are the choices in the decades
+  $10, \dots, 933$, and $171$ of them take the larger child. The first branch point is
+  $1\,9^8\,18 = 19999999918$ in decade $10$.
 \end{theorem}
 
+\begin{proof}
+  For $k \ge 5$, the path enters decade $k$ at $10^k + u_k$ by Theorem~\ref{thm:unique}, and $u_k$
+  as well as the choices made in decade $k$ depend only on $k \bmod 924$ by
+  Corollary~\ref{cor:period}. The path meets no branch point before decade $10$, so the choices
+  in decades $k$ and $k + 924$ agree for all decades that contain any. That no smaller period
+  works is checked directly.
+\end{proof}
+
 In particular, \oeis{A399179} is given by a finite automaton, as suggested in its OEIS entry, and
-all its terms can be listed: the first term, followed by the $314$ terms of Appendix~\ref{app:choices}
-repeated forever. The first $30$ terms agree with the known ones,
+all its terms are known: its first $314$ terms, listed in Appendix~\ref{app:choices}, repeat
+forever. The first $30$ terms agree with the known ones,
 \[
   \texttt{001110011101100001100101111110},
 \]
