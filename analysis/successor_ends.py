@@ -71,3 +71,18 @@ for c in STARTS:
 # 5. The excess of 7 -> 28: 7 * 10^j dies at 10^(j+1) - 28 whenever j = 5 (mod 6).
 rule = all(ends[7, j] == ends[7, 5] for j in range(5, K + 2 * P, 6))
 print(f"\n7 * 10^j ends at 10^(j+1) - 28 for all j >= 5 with j = 5 (mod 6): {rule} ({ends[7, 5]})")
+other = sorted({j % 84 for j in range(K, K + P) if ends[7, j] == ends[7, 5] and j % 6 != 5})
+count = sum(1 for j in range(K, K + P) if ends[7, j] == ends[7, 5] and j % 6 != 5)
+print(f"  It also does so for {count} other j in a period: j mod 84 in {other}")
+
+# 6. Row and column sums of the (c, r) table, and the depletion of column 28.
+counts = Counter((c, ends[c, j].landmine) for c in STARTS for j in range(K, K + P))
+print("\nRow sums:   ", [sum(counts[c, r] for r in LANDMINES) for c in STARTS])
+print("Column sums:", [sum(counts[c, r] for c in STARTS) for r in LANDMINES])
+spread = [counts[c, r] for c in STARTS for r in LANDMINES if r != 28]
+rest = [counts[c, 28] for c in STARTS if c != 7]
+mean_spread = sum(spread) / len(spread)
+std = (sum((n - mean_spread) ** 2 for n in spread) / len(spread)) ** 0.5
+print(f"Columns r != 28: mean {mean_spread:.1f}, standard deviation {std:.1f}")
+print(f"Column 28 without c = 7: {sum(rest)} ends, mean {sum(rest) / len(rest):.1f}; "
+      f"c = 6 has {counts[6, 28]}, {(counts[6, 28] - sum(rest) / len(rest)) / std:+.1f} standard deviations")

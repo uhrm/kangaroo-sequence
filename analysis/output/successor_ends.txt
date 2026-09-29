@@ -25,3 +25,9 @@ Counts of (c, r) over one period of j:
   c = 9:  100  125  111  113  103  134  116  122
 
 7 * 10^j ends at 10^(j+1) - 28 for all j >= 5 with j = 5 (mod 6): True (SuccessorEnd(decades=1, landmine=28))
+  It also does so for 22 other j in a period: j mod 84 in [48, 67]
+
+Row sums:    [924, 924, 924, 924, 924, 924, 924, 924]
+Column sums: [924, 924, 924, 924, 924, 924, 924, 924]
+Columns r != 28: mean 115.5, standard deviation 12.0
+Column 28 without c = 7: 690 ends, mean 98.6; c = 6 has 75, -2.0 standard deviations
