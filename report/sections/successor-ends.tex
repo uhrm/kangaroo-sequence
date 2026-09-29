@@ -84,12 +84,52 @@ The distribution is close to uniform, with one conspicuous exception, $c = 7$, $
   \label{tab:cr}
 \end{table}
 
-\begin{observation}
-  For every $j \ge 5$ with $j \equiv 5 \pmod 6$, the sequence starting at $7 \cdot 10^j$ ends at
-  $10^{j+1} - 28 = 99\cdots972$, within its own decade.
-\end{observation}
+\begin{proposition}
+  \label{prop:seven}
+  For every $j \ge 5$ with $j \equiv 5 \pmod 6$, the successor sequence starting at $7 \cdot 10^j$
+  ends at the landmine $10^{j+1} - 28 = 99\cdots972$, within its own decade.
+\end{proposition}
 
-This accounts for $154 = 924 / 6$ of the $234$ cases of $7 \mapsto 28$. The period $6$ is that of
-$10^j$ modulo $13$, which divides $D_7 = 520$; a sequence starting at $7 \cdot 10^j$ passes only
-through stretches with $D_7 = 520$, $D_8 \in \{480, 580\}$ and $D_9 = 540$ before its first
-landmine. \todo{Turn this into a proof, and explain why $6 \mapsto 28$ is correspondingly rare.}
+\begin{proof}
+  While the leading digit is $f$, a term with last digit $x$ is followed by the comma-number
+  $10x + f$, and the last digit advances by $f$ modulo $10$. So within a stretch the comma-numbers
+  run through a fixed cycle, and the terms are the starting term plus a multiple of the cycle's sum
+  plus a partial sum of the cycle. We follow the three stretches.
+
+  \emph{Leading digit $7$.} From $7 \cdot 10^j$, with last digit $0$, the comma-numbers cycle through
+  $07, 77, 47, 17, 87, 57, 27, 97, 67, 37$, with partial sums $0, 7, 84, 131, 148, 235, \dots$ and
+  total $520$. Since $10^j \equiv 0 \pmod{40}$ and $10^j \equiv 10^5 \equiv 4 \pmod{13}$, we have
+  $10^j \equiv 160 \pmod{520}$, so the last term below $8 \cdot 10^j$ is
+  $7 \cdot 10^j + (10^j - 160) + 148 = 8 \cdot 10^j - 12$. Adding $87$ would give a leading digit
+  of $8$, not $7$, so its only child is $8 \cdot 10^j - 12 + 88 = 8 \cdot 10^j + 76$.
+
+  \emph{Leading digit $8$.} From last digit $6$ the comma-numbers cycle through $68, 48, 28, 08, 88$,
+  with partial sums $0, 68, 116, 144, 152$ and total $240$. As $10^j \equiv 160 \pmod{240}$ for
+  $j \ge 4$, the last term below $9 \cdot 10^j$ is
+  $8 \cdot 10^j + 76 + (10^j - 160) + 68 = 9 \cdot 10^j - 16$, and its only child is
+  $9 \cdot 10^j - 16 + 49 = 9 \cdot 10^j + 33$.
+
+  \emph{Leading digit $9$.} From last digit $3$ the comma-numbers cycle through
+  $39, 29, 19, \dots, 49$, with partial sums $0, 39, 68, \dots$ and total $540$. As
+  $j \equiv 2 \pmod 3$, $10^j \equiv 100 \pmod{540}$, so the sequence reaches
+  $9 \cdot 10^j + 33 + (10^j - 100) + 39 = 10^{j+1} - 28$, all earlier terms being smaller. This is a
+  landmine~\cite[Theorem~5.1]{comma}.
+\end{proof}
+
+Proposition~\ref{prop:seven} accounts for $154 = 924 / 6$ of the $234$ cases of $7 \mapsto 28$.
+Another $22$ end within their own decade as well, for $j \equiv 48, 67 \pmod{84}$; for these the
+last digit on entering the stretch with leading digit $8$ is odd, so that stretch has $D_8 = 580$,
+and $10^j \bmod 580$ has period $28$.
+
+\paragraph{Why column $28$ is depleted.}
+Every row and every column of Table~\ref{tab:cr} sums to $924$. For the rows this holds because each
+$c$ has $924$ values of $j$; for the columns because, by the bijection above and periodicity, the
+sequences starting at $c \cdot 10^j$ with $j$ in one period end at every landmine of one period of
+decades exactly once. By Proposition~\ref{prop:seven}, in the $154$ decades $k \equiv 5 \pmod 6$ of a
+period the landmine $10^{k+1} - 28$ is the end of the sequence from $7 \cdot 10^k$, which leaves
+$770$ of the $924$ landmines with $r = 28$ for all other starts. The starts $7 \cdot 10^j$ take $80$
+of these, and the other seven values of $c$ share the remaining $690$: $98.6$ each on average,
+instead of $115.5$. The count $75$ for $c = 6$ is the smallest of these, $2.0$ standard deviations
+below this reduced mean, measured by the spread of the entries in the other columns. We found no
+mechanism specific to $c = 6$, and among the $56$ entries of the table a deviation of this size is
+unremarkable.
