@@ -2,7 +2,7 @@
 \label{app:software}
 
 All computations use the Python package in the repository~\cite{repo}. The numbers and tables in
-this report were produced at commit {\footnotesize\href{https://github.com/uhrm/kangaroo-sequence/tree/b7b0f745381ff05b556ede5cef090deb57629c18}{\texttt{b7b0f745381ff05b556ede5cef090deb57629c18}}},
+this report were produced at commit {\footnotesize\href{https://github.com/uhrm/kangaroo-sequence/tree/1192116ae9ff5b3c9f32cd87c538cb3ba24d58a2}{\texttt{1192116ae9ff5b3c9f32cd87c538cb3ba24d58a2}}},
 where the outputs of all scripts are stored in \texttt{analysis/output/}. The main modules are
 \begin{itemize}
   \item \texttt{comma.py}: children, successors, and the block jumps of Section~\ref{sec:jumps};
@@ -35,6 +35,10 @@ described in the validation paragraphs above.
       & \texttt{analysis/infinite\_path.py 100} (\texttt{infinite\_path.txt}) \\
     The decade table
       & \texttt{analysis/export\_table.py} (\texttt{decade\_table\_base10.csv}) \\
+    Remark~\ref{rem:index}
+      & \texttt{analysis/first\_branch\_point.py} (\texttt{first\_branch\_point.txt}) \\
+    Remark~\ref{rem:index}, step by step
+      & \texttt{analysis/first\_branch\_point.c}, compiled with \texttt{gcc -O2} \\
     \bottomrule
   \end{tabular}
   \caption{Scripts reproducing the results of this report.}

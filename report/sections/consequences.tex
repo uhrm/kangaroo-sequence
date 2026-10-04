@@ -68,8 +68,14 @@ and we reach the next branch point $2\,9^{84}\,27$ at term $\approx 10^{84.79}$,
 ``about $10^{84.8}$'' of~\cite[\S11]{comma}.
 
 \begin{remark}
-  Counting the root $20$ as term $1$, we find the first branch point $19999999918$ at term
-  $412\,987\,859$, both via the table and by direct step-by-step counting. Section~11
-  of~\cite{comma} and \oeis{A367620} (offset $1$) give $a(412\,987\,860) = 19999999918$.
-  \todo{Resolve this off-by-one.}
+  \label{rem:index}\sloppy
+  Counting the root $20$ as term $1$, the first branch point $19999999918$ is term
+  $412\,987\,859$, whereas Section~11 of~\cite{comma} and \oeis{A367620} (offset $1$) give
+  $a(412\,987\,860) = 19999999918$. We obtained $412\,987\,859$ in three independent ways: from the
+  table, with block jumps, and by a step-by-step count without block jumps. The OEIS's own data
+  agrees with our indexing: the b-file of \oeis{A367620} (terms $1$ to $20\,000$) matches our
+  sequence, and our length of the successor sequence from $20$, which passes $19999999918$, equals
+  the value $19\,278\,442\,756\,937\,613$ of \oeis{A330128} at $20$. The index $412\,987\,860$
+  belongs to the next term, the smaller child $19999999999$, which is the first term decided by a
+  choice; this may be the origin of the discrepancy.
 \end{remark}
