@@ -41,8 +41,8 @@ $c \cdot 10^j$.
 
 \paragraph{Mean lifetime.}
 Counting decade boundaries over one period of $G'_b$ gives the mean lifetime exactly: each of the
-$(b-2) L(b)$ paths starting in one period crosses as many decade boundaries as its lifetime, and each
-of the $|U(b, 1)|\, L(b)$ boundary points lies on exactly one path. Hence, in any base in which all
+$(b-2) L(b)$ paths starting in one period meets as many decade boundaries as its lifetime, and each
+of the $|U(b, 1)|\, L(b)$ points at the decade boundaries lies on exactly one path. Hence, in any base in which all
 comma sequences are finite,
 \[
   \text{mean lifetime} = \frac{|U(b, 1)|}{b - 2} = \frac{(b-1)(b+2)}{2(b-2)} = \frac{b+3}{2} + \frac{2}{b-2}
@@ -52,11 +52,26 @@ confirmed the formula numerically for $3 \le b \le 10$. The lifetimes decay roug
 by a factor close to $1 - 8/54$ per decade in base 10, and the longest lifetime is $45$ decades.
 
 \begin{remark}
-  \cite[Conjecture~17]{dbts} states that the path length $|P|$ in $G'_b$ is approximately
-  exponentially distributed with mean close to $b/2 + 1$. If $|P|$ is measured in decade
-  boundaries and averaged over paths, the formula above gives its mean exactly, which exceeds
-  $b/2 + 1$ by $1/2 + 2/(b-2)$. \todo{Check that this reading of $|P|$ matches~\cite{dbts}, whose
-  Section~5 averages over vertices rather than paths.}
+  \cite[Conjecture~17]{dbts} states that the length $|P|$ of a uniformly random path of $G'_b$ is
+  approximately exponentially distributed with mean close to $b/2 + 1$. Here $|P|$ counts the
+  vertices $(1, u, \kappa)$ of the path, i.e.\ its last terms below the powers $b^k$, including the
+  final landmine. This is what the program of~\cite{dbtscode} counts, and counting all vertices
+  $(d, u, \kappa)$ would make $|P|$ about $b - 1$ times larger. So $|P|$ is the lifetime, and the
+  formula above is its exact mean,
+  \[
+    E\,|P| = \frac{b}{2} + 1 + \frac{1}{2} + \frac{2}{b-2},
+  \]
+  in every base in which all comma sequences are finite, in particular for $3 \le b \le 633$
+  by~\cite{dbts}. Indeed, their program establishes finiteness by checking that the paths contain
+  all $|U(b,1)|\,L(b)$ such vertices, and dividing by the $(b-2)\,L(b)$ paths gives $E\,|P|$. The mean
+  in the conjecture is therefore correct to leading order, but too small by a constant that tends
+  to $1/2$. Small bases do not settle the exponential shape: for $7 \le b \le 10$ the ratio
+  $\operatorname{Var}|P| / (E\,|P|)^2$ is between $0.75$ and $1.01$, where an exponential
+  distribution has $1$.
+
+  The estimate~(6) of~\cite{dbts} for the number of danger intervals survived is a different
+  average, $\sum_P \binom{|P|}{2} / \sum_P |P|$, taken over vertices rather than paths. In base 10
+  its exact value is $5.42$, compared with $b/2 + 1 = 6$.
 \end{remark}
 
 \paragraph{Where sequences end.}
