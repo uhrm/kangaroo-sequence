@@ -51,8 +51,21 @@ its parent. So it suffices that
 \[
   k(mb) \le (f+1)\,p - b^2 .
 \]
-This matches the margin in condition (6.1) of~\cite{comma}. \todo{(6.1) reads
-$k \le (f+1)(b^{i+2} - b^2)$; check whether $(f+1)\,b^{i+2} - b^2$ was intended.}
+With $p = b^{i+2}$ for a term $k = f\,s\,w\,x$ whose part $s$ has $i$ digits, this is the bound
+$k \le (f+1)\,b^{i+2} - b^2$, which also guarantees that the successor of $k$ keeps the leading
+digit $f$, since a comma-number is less than $b^2$.
+
+\begin{remark}
+  Condition (6.1) of~\cite{comma} reads $k \le (f+1)\,(b^{i+2} - b^2)$. This bound is smaller than
+  $(f+1)\,b^{i+2} - b^2$ by $f\,b^2$, so it is also sufficient, but it excludes the top
+  $(f+1)\,b^2$ numbers of each stretch instead of $b^2$; for $i = 0$ it holds for no $k$ at all. We
+  believe that $(f+1)\,b^{i+2} - b^2$ was intended: it is the bound given by the argument
+  that a comma-number is less than $b^2$, and the numbers excluded by it form exactly the danger
+  interval $[(f+1)\,b^{i+2} - b^2, (f+1)\,b^{i+2})$ of~\cite{dbts}. Either form makes the jumps
+  correct. The programs in \oeis{A330128} and \oeis{A330129} use neither: they jump in blocks of
+  $100$ steps until just below $(f+1)\,b^{i+2}$, which is the bound for successor sequences given
+  above.
+\end{remark}
 
 \paragraph{Validation.}
 Alternating maximal jumps with single steps across leading-digit changes reproduces the lengths
